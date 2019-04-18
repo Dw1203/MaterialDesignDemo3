@@ -24,5 +24,36 @@ namespace MaterialDesignDemo3
         {
             InitializeComponent();
         }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnMax_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+                this.BtnNormal.Visibility = Visibility.Visible;
+                this.btnMax.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.WindowState = WindowState.Normal;
+                this.BtnNormal.Visibility = Visibility.Collapsed;
+                this.btnMax.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnMin_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

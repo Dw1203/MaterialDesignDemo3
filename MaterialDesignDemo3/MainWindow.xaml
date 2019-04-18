@@ -5,8 +5,286 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaterialDesignDemo3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+		xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="MainWindow" Height="700" Width="1020" ResizeMode="NoResize" BorderBrush="{x:Null}"  WindowStartupLocation="CenterScreen" WindowStyle="None">
+	<Window.Resources>
+		<Style x:Key="PackStyle" TargetType="MaterialDesign:PackIcon">
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver"  Value="true">
+					<Setter Property="Foreground" Value="Green"></Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+		<Style x:Key="ButtonStyle" TargetType="Button" >
+
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid Name="GRID" Background="{x:Null}" Opacity="0">
+							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="true">								
+								<Setter TargetName="GRID"    Property="Opacity"  Value="0.7"></Setter>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers >
+				<Trigger Property="IsMouseOver" Value="true">
+					<Setter Property="Foreground" Value="White"></Setter>
+
+				</Trigger>
+
+			</Style.Triggers>
+
+		</Style>
+
+	</Window.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="220"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="90"/>
+		</Grid.RowDefinitions>
+		<!--左边的Grid #FFEEF1EC-->
+		<Grid Background="#FFEEF1EC" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="120"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid Height="120" VerticalAlignment="Top"  >
+				<Canvas>
+					<Ellipse Canvas.Left="70" Canvas.Top="30" Height="60" Width="60">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="images/图像.jpg" ></ImageBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+					<MaterialDesign:PackIcon Kind="Headphones" Height="30" Width="30" Canvas.Left="140" Canvas.Top="45" Foreground="Green"></MaterialDesign:PackIcon>
+				</Canvas>
+			</Grid>
+			<ScrollViewer Grid.Row="1">
+				<StackPanel  Margin="0,0,0,0">
+
+					<TextBlock Margin="20,5" FontSize="18">在线音乐</TextBlock>
+					<ListView Margin="20,5,0,0">
+
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="Music" Foreground="DarkGreen" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">音乐馆</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="Video" Foreground="Black" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">视频</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="HeartBoxOutline" Foreground="Red" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">个性电台</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+					</ListView>
+					<TextBlock Margin="20,5" FontSize="18">我的音乐</TextBlock>
+					<ListView Margin="20,5,0,0">
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="Heart" Foreground="HotPink" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">我喜欢</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="Tv" Foreground="Black" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">本地和下载</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="Clock" Foreground="Gray" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">播放历史</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+						<ListViewItem >
+							<StackPanel Orientation="Horizontal" Height="25" >
+								<MaterialDesign:PackIcon Kind="PlaylistAdd" Foreground="Orange" Height="25" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Foreground="Black" VerticalAlignment="Center"
+									   Margin="3,0" FontSize="15">试听列表</TextBlock>
+							</StackPanel>
+						</ListViewItem>
+					</ListView>
+					<Expander Background="Transparent" IsExpanded="False" HorizontalAlignment="Stretch">
+						<Expander.Header>
+							<TextBlock Text="我创建的歌单" FontSize="15" Foreground="Black"/>
+						</Expander.Header>
+						<ListBox Foreground="Black" Margin="25,0">
+							<ListBoxItem >歌单1</ListBoxItem>
+							<ListBoxItem >歌单2</ListBoxItem>
+							<ListBoxItem >歌单3</ListBoxItem>
+							<ListBoxItem >歌单4</ListBoxItem>
+						</ListBox>
+					</Expander>
+					<Expander Background="Transparent" IsExpanded="False" HorizontalAlignment="Stretch">
+						<Expander.Header>
+							<TextBlock Text="我收藏的歌单" FontSize="15" Foreground="Black"/>
+						</Expander.Header>
+						<ListBox Foreground="Black" Margin="25,0">
+							<ListBoxItem >歌单1</ListBoxItem>
+						</ListBox>
+					</Expander>
+
+				</StackPanel>
+			</ScrollViewer>
+
+		</Grid>
+
+		<!--右边Grid-->
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="50"/>
+				<RowDefinition />
+
+			</Grid.RowDefinitions>
+			<!--搜索框 按钮等-->
+			<Grid Height="50" VerticalAlignment="Top" >
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+					<Button Padding="3" Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">
+						<MaterialDesign:PackIcon Kind="ArrowBack"  Height="20" Width="20" Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Padding="3"  Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="ArrowRight" Foreground="Black" Height="20" Width="20" 												 Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
+					</Button>
+					<TextBox Width="200" VerticalAlignment="Center" Margin="10,0" BorderBrush="Black" MaterialDesign:HintAssist.Hint="请输入歌名、歌手、、、"></TextBox>
+					<Button Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0">
+						<MaterialDesign:PackIcon Kind="Search" Foreground="Black" Height="30" Width="20"></MaterialDesign:PackIcon>
+					</Button>
+					<MaterialDesign:PackIcon Kind="Music" VerticalAlignment="Center" Height="20" Width="30"></MaterialDesign:PackIcon>
+				</StackPanel>
+				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="FlagTriangle" Height="30" Width="20" Padding="0" Foreground="Green"></MaterialDesign:PackIcon>
+					</Button>
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="Menu" Height="30" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+					</Button>
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="ArrowCollapse" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Name="btnMin" Click="BtnMin_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="WindowMinimize" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+					</Button>
+					<Grid>
+						<Button Name="BtnNormal" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed">
+							<MaterialDesign:PackIcon Name="packMax" Kind="WindowRestore" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+
+						</Button>
+						<Button Name="btnMax" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+							<MaterialDesign:PackIcon  Kind="WindowMaximize" Height="20" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+
+						</Button>
+					</Grid>
+					<Button Name="btnClose" Click="BtnClose_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="WindowClose" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+					</Button>
+				</StackPanel>
+			</Grid>
+			<!--选项栏-->
+			<Grid Grid.Row="1">
+				<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">精选</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">歌手</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">排行</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">电台</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">分类歌单</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">有声</Button>
+					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">数字专辑</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+		<!--底部状态栏-->
+		<Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFEEF1EC">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid >
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid Grid.RowSpan="2">
+				<Rectangle  Margin="10">
+					<Rectangle.Fill>
+						<ImageBrush ImageSource="images/图像.jpg"/>
+					</Rectangle.Fill>
+				</Rectangle>
+					<Button Margin="10" Style="{StaticResource ButtonStyle}" Padding="0" Background="Transparent" BorderBrush="{x:Null}" 
+							 >
+						<MaterialDesign:PackIcon Kind="ChevronUp"  Height="70" Width="80" Background="DarkGray" Padding="0"></MaterialDesign:PackIcon>
+						
+					</Button>
+				</Grid>
+				<TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="18" Margin="5,10,5,0">只是太爱你—张敬轩</TextBlock>
+				<StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Red" ToolTip="收藏">
+						<MaterialDesign:PackIcon Padding="0" Kind="Heart" Height="25" Width="25"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="下载">
+						<MaterialDesign:PackIcon Padding="0" Kind="Download" Height="25" Width="25"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="LightGreen" ToolTip="更多">
+						<MaterialDesign:PackIcon Padding="0" Kind="More" Height="25" Width="25"></MaterialDesign:PackIcon>
+					</Button>
+				</StackPanel>
+			</Grid>
+			<Grid Grid.Column="1">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="播放模式">
+						<MaterialDesign:PackIcon Padding="0" Kind="RepeatOnce" Height="25" Width="25"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Margin="0,10,0,10" Height="auto" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Green" ToolTip="上一曲">
+						<MaterialDesign:PackIcon Padding="0" Kind="SkipPrevious" Height="50" Width="50"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Padding="0" Margin="0,10,0,10" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Green" Height="Auto" ToolTip="播放/暂停">
+						<MaterialDesign:PackIcon Padding="0" Kind="Play" Height="70" Width="70"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Margin="0,10,0,10" Height="auto" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Green" ToolTip="下一曲">
+						<MaterialDesign:PackIcon Padding="0" Kind="SkipNext" Height="50" Width="50"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="音量">
+						<MaterialDesign:PackIcon Padding="0" Kind="Voice" Height="25" Width="25"></MaterialDesign:PackIcon>
+					</Button>
+				</StackPanel>
+			</Grid>
+			<Grid Grid.Column="2">
+				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+					<TextBlock VerticalAlignment="Center" Foreground="DarkGray" FontSize="15" Margin="5">00:08/3:16</TextBlock>
+					<Button Padding="0" Margin="5" Background="Transparent" Foreground="Black" FontSize="20" BorderBrush="{x:Null}" ToolTip="歌词">词</Button>
+					<Button Padding="0" Margin="5" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="PlaylistAdd" Foreground="Black" Height="30" Width="30"></MaterialDesign:PackIcon>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Grid>
+
 </Window>
