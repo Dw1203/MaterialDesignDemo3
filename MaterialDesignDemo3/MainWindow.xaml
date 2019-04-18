@@ -15,6 +15,7 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
+		<!--透明ButtonStyle-->
 		<Style x:Key="ButtonStyle" TargetType="Button" >
 
 			<Setter Property="Template">
@@ -67,6 +68,7 @@
 					<MaterialDesign:PackIcon Kind="Headphones" Height="30" Width="30" Canvas.Left="140" Canvas.Top="45" Foreground="Green"></MaterialDesign:PackIcon>
 				</Canvas>
 			</Grid>
+			<!--左侧菜单-->
 			<ScrollViewer Grid.Row="1">
 				<StackPanel  Margin="0,0,0,0">
 
@@ -222,6 +224,7 @@
 				<ColumnDefinition/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
+			<!--左侧-->
 			<Grid >
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100"/>
@@ -231,6 +234,7 @@
 					<RowDefinition />
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
+				
 				<Grid Grid.RowSpan="2">
 				<Rectangle  Margin="10">
 					<Rectangle.Fill>
@@ -256,6 +260,7 @@
 					</Button>
 				</StackPanel>
 			</Grid>
+			<!--中部-->
 			<Grid Grid.Column="1">
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="播放模式">
@@ -275,6 +280,7 @@
 					</Button>
 				</StackPanel>
 			</Grid>
+			<!--右侧-->
 			<Grid Grid.Column="2">
 				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 					<TextBlock VerticalAlignment="Center" Foreground="DarkGray" FontSize="15" Margin="5">00:08/3:16</TextBlock>
