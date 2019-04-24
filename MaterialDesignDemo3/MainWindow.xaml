@@ -8,6 +8,7 @@
 		xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="MainWindow" Height="700" Width="1020" ResizeMode="NoResize" BorderBrush="{x:Null}"  WindowStartupLocation="CenterScreen" WindowStyle="None">
 	<Window.Resources>
+
 		<Style x:Key="PackStyle" TargetType="MaterialDesign:PackIcon">
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver"  Value="true">
@@ -25,7 +26,7 @@
 							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
 						</Grid>
 						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="true">								
+							<Trigger Property="IsMouseOver" Value="true">
 								<Setter TargetName="GRID"    Property="Opacity"  Value="0.7"></Setter>
 							</Trigger>
 						</ControlTemplate.Triggers>
@@ -35,13 +36,20 @@
 			<Style.Triggers >
 				<Trigger Property="IsMouseOver" Value="true">
 					<Setter Property="Foreground" Value="White"></Setter>
-
 				</Trigger>
-
 			</Style.Triggers>
-
 		</Style>
-
+		<Style x:Key="IconButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Grid Height="30" >
+							<ContentPresenter  VerticalAlignment="Center"></ContentPresenter>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Window.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -53,7 +61,7 @@
 			<RowDefinition Height="90"/>
 		</Grid.RowDefinitions>
 		<!--左边的Grid #FFEEF1EC-->
-		<Grid Background="#FFEEF1EC" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+		<Grid Background="LightGreen" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="120"/>
 				<RowDefinition/>
@@ -73,7 +81,7 @@
 				<StackPanel  Margin="0,0,0,0">
 
 					<TextBlock Margin="20,5" FontSize="18">在线音乐</TextBlock>
-					<ListView Margin="20,5,0,0">
+					<ListView Margin="20,5,0,0" >
 
 						<ListViewItem >
 							<StackPanel Orientation="Horizontal" Height="25" >
@@ -132,11 +140,52 @@
 						<Expander.Header>
 							<TextBlock Text="我创建的歌单" FontSize="15" Foreground="Black"/>
 						</Expander.Header>
-						<ListBox Foreground="Black" Margin="25,0">
-							<ListBoxItem >歌单1</ListBoxItem>
-							<ListBoxItem >歌单2</ListBoxItem>
-							<ListBoxItem >歌单3</ListBoxItem>
-							<ListBoxItem >歌单4</ListBoxItem>
+						<ListBox  Foreground="Black" Margin="25,0">
+							<!--ListBox.ItemContainerStyle属性-->
+							<ListBox.ItemContainerStyle >
+								<Style TargetType="ListBoxItem">
+									<Setter Property="ContextMenu">
+										<Setter.Value>
+											<ContextMenu >
+												<StackPanel Margin="2" >
+													<Button Background="{x:Null}" BorderBrush="{x:Null}" Width="50" Margin="2" Padding="0">删除</Button>
+												</StackPanel>
+											</ContextMenu>
+										</Setter.Value>
+									</Setter>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="ListBoxItem">
+												<StackPanel Name="Stack" Margin="2" Height="30" Orientation="Horizontal" Width="160">
+													<MaterialDesign:PackIcon Kind="Music" Height="25" Width="25" Padding="0" Foreground="OrangeRed"></MaterialDesign:PackIcon>
+													<ContentPresenter VerticalAlignment="Center" Margin="2" Width="130"></ContentPresenter>
+												</StackPanel>
+
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter TargetName="Stack" Property="Background" Value="DarkGray"></Setter>
+													</Trigger>
+													<Trigger Property="IsSelected" Value="true">
+														<Setter TargetName="Stack" Property="Background" Value="green"></Setter>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</ListBox.ItemContainerStyle>
+							<ListBoxItem FontSize="15" >
+								歌单1</ListBoxItem>
+							<ListBoxItem>
+								<Grid>
+									<MaterialDesign:PackIcon Kind="Adb" Width="30"></MaterialDesign:PackIcon>
+									<TextBlock Margin="30,0,0,0">adb</TextBlock>
+								</Grid>
+							</ListBoxItem>
+							<ListBoxItem FontSize="15">歌单2</ListBoxItem>
+							<ListBoxItem FontSize="15">歌单3</ListBoxItem>
+							<ListBoxItem FontSize="15">歌单4</ListBoxItem>
+
 						</ListBox>
 					</Expander>
 					<Expander Background="Transparent" IsExpanded="False" HorizontalAlignment="Stretch">
@@ -216,6 +265,10 @@
 					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">数字专辑</Button>
 				</StackPanel>
 			</Grid>
+			<Grid Grid.Row="2" Background="LightGreen">
+				
+
+			</Grid>
 		</Grid>
 		<!--底部状态栏-->
 		<Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFEEF1EC">
@@ -234,17 +287,17 @@
 					<RowDefinition />
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				
+
 				<Grid Grid.RowSpan="2">
-				<Rectangle  Margin="10">
-					<Rectangle.Fill>
-						<ImageBrush ImageSource="images/图像.jpg"/>
-					</Rectangle.Fill>
-				</Rectangle>
+					<Rectangle  Margin="10">
+						<Rectangle.Fill>
+							<ImageBrush ImageSource="images/图像.jpg"/>
+						</Rectangle.Fill>
+					</Rectangle>
 					<Button Margin="10" Style="{StaticResource ButtonStyle}" Padding="0" Background="Transparent" BorderBrush="{x:Null}" 
 							 >
 						<MaterialDesign:PackIcon Kind="ChevronUp"  Height="70" Width="80" Background="DarkGray" Padding="0"></MaterialDesign:PackIcon>
-						
+
 					</Button>
 				</Grid>
 				<TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="18" Margin="5,10,5,0">只是太爱你—张敬轩</TextBlock>
@@ -262,9 +315,67 @@
 			</Grid>
 			<!--中部-->
 			<Grid Grid.Column="1">
+				<Popup Name="PopCyc" 
+					   PlacementTarget="{Binding ElementName=btnCyc}"
+					   AllowsTransparency="True"
+					   HorizontalOffset="10"
+					  VerticalOffset="-230"
+					   PopupAnimation="Fade"
+					   StaysOpen="False">
+
+					<ListBox HorizontalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged">
+						<ListBox.ItemContainerStyle>
+							<Style TargetType="ListBoxItem">
+								<Setter Property="Template">
+									<Setter.Value>
+										<ControlTemplate TargetType="ListBoxItem">
+											<StackPanel Name="Sta" Margin="2" Height="30"  Width="160">
+
+												<ContentPresenter VerticalAlignment="Center" Margin="2" Width="130"></ContentPresenter>
+											</StackPanel>
+											<ControlTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="true">
+													<Setter TargetName="Sta" Property="Background" Value="green"></Setter>
+												</Trigger>
+											</ControlTemplate.Triggers>
+										</ControlTemplate>
+
+									</Setter.Value>
+								</Setter>
+							</Style>
+						</ListBox.ItemContainerStyle>
+						<ListBoxItem Foreground="Black">
+							<StackPanel Orientation="Horizontal">
+								<MaterialDesign:PackIcon Name="Shuff" Kind="ShuffleVariant" Height="30" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock  Text="随机播放" VerticalAlignment="Center" FontSize="15" Width="120"></TextBlock>
+							</StackPanel>
+						</ListBoxItem>
+						<ListBoxItem >
+							<StackPanel Orientation="Horizontal">
+								<MaterialDesign:PackIcon  Foreground="Black" Kind="PlaylistPlay" Height="30" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock  Text="顺序播放" Foreground="Black" VerticalAlignment="Center" FontSize="15" Width="120" ></TextBlock>
+							</StackPanel>
+						</ListBoxItem>
+						<ListBoxItem>
+							<StackPanel Orientation="Horizontal">
+								<MaterialDesign:PackIcon Kind="RepeatOnce" Foreground="Black" Height="30" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Text="单曲循环" Foreground="Black" VerticalAlignment="Center" FontSize="15"></TextBlock>
+							</StackPanel>
+						</ListBoxItem>
+						<ListBoxItem Foreground="Black">
+							<StackPanel Orientation="Horizontal">
+								<MaterialDesign:PackIcon Kind="Repeat" Height="30" Width="25"></MaterialDesign:PackIcon>
+								<TextBlock Text="列表循环" VerticalAlignment="Center" FontSize="15"></TextBlock>
+							</StackPanel>
+						</ListBoxItem>
+						
+					</ListBox>
+
+				</Popup>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<Button Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="播放模式">
-						<MaterialDesign:PackIcon Padding="0" Kind="RepeatOnce" Height="25" Width="25"></MaterialDesign:PackIcon>
+					<Button  Name="btnCyc" Click="BtnCyc_Click"
+							 Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" ToolTip="播放模式">
+						<MaterialDesign:PackIcon Name="PlayBackMode" Padding="0" Kind="RepeatOnce" Height="25" Width="25"></MaterialDesign:PackIcon>
 					</Button>
 					<Button Margin="0,10,0,10" Height="auto" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Green" ToolTip="上一曲">
 						<MaterialDesign:PackIcon Padding="0" Kind="SkipPrevious" Height="50" Width="50"></MaterialDesign:PackIcon>
@@ -292,5 +403,6 @@
 			</Grid>
 		</Grid>
 	</Grid>
+
 
 </Window>

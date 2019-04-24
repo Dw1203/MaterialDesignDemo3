@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,46 @@ namespace MaterialDesignDemo3
         private void BtnMin_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// 弹出播放模式POP
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCyc_Click(object sender, RoutedEventArgs e)
+        {
+            int n = 123;
+           
+
+            PopCyc.IsOpen = true
+           ;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listview = (ListBox)sender;
+            switch(listview.SelectedIndex)
+            {
+                case 0:
+                    PlayBackMode.Kind = PackIconKind.ShuffleVariant;
+                    PopCyc.IsOpen = false;
+                    break;
+                case 1:
+                    PlayBackMode.Kind = PackIconKind.PlaylistPlay;
+                    PopCyc.IsOpen = false;
+                    break;
+                case 2:
+                    PlayBackMode.Kind = PackIconKind.RepeatOnce;
+                    PopCyc.IsOpen = false;
+                    break;
+                case 3:
+                    PlayBackMode.Kind = PackIconKind.Repeat;
+                    PopCyc.IsOpen = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
