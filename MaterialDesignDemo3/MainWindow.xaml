@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaterialDesignDemo3"
         mc:Ignorable="d"
+		xmlns:handy="clr-namespace:HandyControl.Controls;assembly=HandyControl"
 		xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="700" Width="1020" ResizeMode="NoResize" BorderBrush="{x:Null}"  WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="MainWindow" Height="700" Width="1020" ResizeMode="NoResize" BorderBrush="{x:Null}"  WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded">
 	<Window.Resources>
 
 		<Style x:Key="PackStyle" TargetType="MaterialDesign:PackIcon">
@@ -52,6 +53,7 @@
 		</Style>
 	</Window.Resources>
 	<Grid>
+
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="220"/>
 			<ColumnDefinition/>
@@ -60,6 +62,63 @@
 			<RowDefinition/>
 			<RowDefinition Height="90"/>
 		</Grid.RowDefinitions>
+		<!--右边Grid-->
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				
+				<RowDefinition />
+
+			</Grid.RowDefinitions>
+			<!--搜索框 按钮等-->
+			<Grid Height="50" VerticalAlignment="Top" >
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+					<Button Padding="3" Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">
+						<MaterialDesign:PackIcon Kind="ArrowBack"  Height="20" Width="20" Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Padding="3"  Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="ArrowRight" Foreground="Black" Height="20" Width="20" 												 Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
+					</Button>
+					<TextBox Width="200" VerticalAlignment="Center" Margin="10,0" BorderBrush="Black" MaterialDesign:HintAssist.Hint="请输入歌名、歌手、、、"></TextBox>
+					<Button Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0">
+						<MaterialDesign:PackIcon Kind="Search" Foreground="Black" Height="30" Width="20"></MaterialDesign:PackIcon>
+					</Button>
+					<MaterialDesign:PackIcon Kind="Music" VerticalAlignment="Center" Height="20" Width="30"></MaterialDesign:PackIcon>
+				</StackPanel>
+				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="FlagTriangle" Height="30" Width="20" Padding="0" Foreground="Green"></MaterialDesign:PackIcon>
+					</Button>
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="Menu" Height="30" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+					</Button>
+					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="ArrowCollapse" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+					</Button>
+					<Button Name="btnMin" Click="BtnMin_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="WindowMinimize" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+					</Button>
+					<Grid>
+						<Button Name="BtnNormal" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed">
+							<MaterialDesign:PackIcon Name="packMax" Kind="WindowRestore" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+
+						</Button>
+						<Button Name="btnMax" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+							<MaterialDesign:PackIcon  Kind="WindowMaximize" Height="20" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
+
+						</Button>
+					</Grid>
+					<Button Name="btnClose" Click="BtnClose_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+						<MaterialDesign:PackIcon Kind="WindowClose" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
+					</Button>
+				</StackPanel>
+			</Grid>
+			<!--选项栏-->
+			
+			<Grid Grid.Row="1" Name="ContentGrid">
+
+			</Grid>
+		</Grid>
 		<!--左边的Grid #FFEEF1EC-->
 		<Grid Background="LightGreen" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
 			<Grid.RowDefinitions>
@@ -76,14 +135,15 @@
 					<MaterialDesign:PackIcon Kind="Headphones" Height="30" Width="30" Canvas.Left="140" Canvas.Top="45" Foreground="Green"></MaterialDesign:PackIcon>
 				</Canvas>
 			</Grid>
+
 			<!--左侧菜单-->
-			<ScrollViewer Grid.Row="1">
+			<ScrollViewer  Grid.Row="1"  VerticalScrollBarVisibility="Visible">
 				<StackPanel  Margin="0,0,0,0">
 
 					<TextBlock Margin="20,5" FontSize="18">在线音乐</TextBlock>
-					<ListView Margin="20,5,0,0" >
+					<ListView Name="LsMenu1" Margin="20,5,0,0" SelectedIndex="0" SelectionChanged="LsMenu1_SelectionChanged">
 
-						<ListViewItem >
+						<ListViewItem  >
 							<StackPanel Orientation="Horizontal" Height="25" >
 								<MaterialDesign:PackIcon Kind="Music" Foreground="DarkGreen" Height="25" Width="25"></MaterialDesign:PackIcon>
 								<TextBlock Foreground="Black" VerticalAlignment="Center"
@@ -202,74 +262,7 @@
 
 		</Grid>
 
-		<!--右边Grid-->
-		<Grid Grid.Column="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="50"/>
-				<RowDefinition Height="50"/>
-				<RowDefinition />
 
-			</Grid.RowDefinitions>
-			<!--搜索框 按钮等-->
-			<Grid Height="50" VerticalAlignment="Top" >
-				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-					<Button Padding="3" Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">
-						<MaterialDesign:PackIcon Kind="ArrowBack"  Height="20" Width="20" Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
-					</Button>
-					<Button Padding="3"  Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="ArrowRight" Foreground="Black" Height="20" Width="20" 												 Style="{StaticResource PackStyle}"></MaterialDesign:PackIcon>
-					</Button>
-					<TextBox Width="200" VerticalAlignment="Center" Margin="10,0" BorderBrush="Black" MaterialDesign:HintAssist.Hint="请输入歌名、歌手、、、"></TextBox>
-					<Button Margin="5,0" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0">
-						<MaterialDesign:PackIcon Kind="Search" Foreground="Black" Height="30" Width="20"></MaterialDesign:PackIcon>
-					</Button>
-					<MaterialDesign:PackIcon Kind="Music" VerticalAlignment="Center" Height="20" Width="30"></MaterialDesign:PackIcon>
-				</StackPanel>
-				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="FlagTriangle" Height="30" Width="20" Padding="0" Foreground="Green"></MaterialDesign:PackIcon>
-					</Button>
-					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="Menu" Height="30" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
-					</Button>
-					<Button   Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="ArrowCollapse" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
-					</Button>
-					<Button Name="btnMin" Click="BtnMin_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="WindowMinimize" Height="30" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
-					</Button>
-					<Grid>
-						<Button Name="BtnNormal" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed">
-							<MaterialDesign:PackIcon Name="packMax" Kind="WindowRestore" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
-
-						</Button>
-						<Button Name="btnMax" Click="BtnMax_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-							<MaterialDesign:PackIcon  Kind="WindowMaximize" Height="20" Width="20" Padding="0" Foreground="Black"></MaterialDesign:PackIcon>
-
-						</Button>
-					</Grid>
-					<Button Name="btnClose" Click="BtnClose_Click" Margin="5,0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
-						<MaterialDesign:PackIcon Kind="WindowClose" Height="20" Width="20" Padding="0" Foreground="Black" ></MaterialDesign:PackIcon>
-					</Button>
-				</StackPanel>
-			</Grid>
-			<!--选项栏-->
-			<Grid Grid.Row="1">
-				<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">精选</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">歌手</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">排行</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">电台</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">分类歌单</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">有声</Button>
-					<Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontSize="15">数字专辑</Button>
-				</StackPanel>
-			</Grid>
-			<Grid Grid.Row="2" Background="LightGreen">
-				
-
-			</Grid>
-		</Grid>
 		<!--底部状态栏-->
 		<Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFEEF1EC">
 			<Grid.ColumnDefinitions>
@@ -319,58 +312,50 @@
 					   PlacementTarget="{Binding ElementName=btnCyc}"
 					   AllowsTransparency="True"
 					   HorizontalOffset="10"
-					  VerticalOffset="-230"
+					  VerticalOffset="-200"
 					   PopupAnimation="Fade"
 					   StaysOpen="False">
 
-					<ListBox HorizontalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged">
-						<ListBox.ItemContainerStyle>
-							<Style TargetType="ListBoxItem">
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="ListBoxItem">
-											<StackPanel Name="Sta" Margin="2" Height="30"  Width="160">
 
-												<ContentPresenter VerticalAlignment="Center" Margin="2" Width="130"></ContentPresenter>
-											</StackPanel>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsMouseOver" Value="true">
-													<Setter TargetName="Sta" Property="Background" Value="green"></Setter>
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
+					<StackPanel Width="120">
+						<ListBox SelectionChanged="ListView_SelectionChanged">
+							<ListBox.ItemContainerStyle>
+								<Style TargetType="ListBoxItem">
+									<Setter Property="Background" Value="LightGreen"></Setter>
+									<Style.Triggers>
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter Property="Background" Value="Green"></Setter>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</ListBox.ItemContainerStyle>
+							<ListBoxItem>
+								<StackPanel Orientation="Horizontal">
+									<MaterialDesign:PackIcon Name="Shuff" Kind="ShuffleVariant" Height="30" Width="25"></MaterialDesign:PackIcon>
+									<TextBlock  Text="随机播放" VerticalAlignment="Center" FontSize="15" Width="120"></TextBlock>
+								</StackPanel>
+							</ListBoxItem>
+							<ListBoxItem >
+								<StackPanel Orientation="Horizontal">
+									<MaterialDesign:PackIcon   Kind="PlaylistPlay" Height="30" Width="25"></MaterialDesign:PackIcon>
+									<TextBlock  Text="顺序播放"  VerticalAlignment="Center" FontSize="15" Width="120" ></TextBlock>
+								</StackPanel>
+							</ListBoxItem>
+							<ListBoxItem>
+								<StackPanel Orientation="Horizontal">
+									<MaterialDesign:PackIcon Kind="RepeatOnce"  Height="30" Width="25"></MaterialDesign:PackIcon>
+									<TextBlock Text="单曲循环"  VerticalAlignment="Center" FontSize="15"></TextBlock>
+								</StackPanel>
+							</ListBoxItem>
+							<ListBoxItem >
+								<StackPanel Orientation="Horizontal">
+									<MaterialDesign:PackIcon Kind="Repeat" Height="30" Width="25"></MaterialDesign:PackIcon>
+									<TextBlock Text="列表循环" VerticalAlignment="Center" FontSize="15"></TextBlock>
+								</StackPanel>
+							</ListBoxItem>
 
-									</Setter.Value>
-								</Setter>
-							</Style>
-						</ListBox.ItemContainerStyle>
-						<ListBoxItem Foreground="Black">
-							<StackPanel Orientation="Horizontal">
-								<MaterialDesign:PackIcon Name="Shuff" Kind="ShuffleVariant" Height="30" Width="25"></MaterialDesign:PackIcon>
-								<TextBlock  Text="随机播放" VerticalAlignment="Center" FontSize="15" Width="120"></TextBlock>
-							</StackPanel>
-						</ListBoxItem>
-						<ListBoxItem >
-							<StackPanel Orientation="Horizontal">
-								<MaterialDesign:PackIcon  Foreground="Black" Kind="PlaylistPlay" Height="30" Width="25"></MaterialDesign:PackIcon>
-								<TextBlock  Text="顺序播放" Foreground="Black" VerticalAlignment="Center" FontSize="15" Width="120" ></TextBlock>
-							</StackPanel>
-						</ListBoxItem>
-						<ListBoxItem>
-							<StackPanel Orientation="Horizontal">
-								<MaterialDesign:PackIcon Kind="RepeatOnce" Foreground="Black" Height="30" Width="25"></MaterialDesign:PackIcon>
-								<TextBlock Text="单曲循环" Foreground="Black" VerticalAlignment="Center" FontSize="15"></TextBlock>
-							</StackPanel>
-						</ListBoxItem>
-						<ListBoxItem Foreground="Black">
-							<StackPanel Orientation="Horizontal">
-								<MaterialDesign:PackIcon Kind="Repeat" Height="30" Width="25"></MaterialDesign:PackIcon>
-								<TextBlock Text="列表循环" VerticalAlignment="Center" FontSize="15"></TextBlock>
-							</StackPanel>
-						</ListBoxItem>
-						
-					</ListBox>
-
+						</ListBox>
+					</StackPanel>
 				</Popup>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 					<Button  Name="btnCyc" Click="BtnCyc_Click"

@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignDemo3.UserControls;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,28 @@ namespace MaterialDesignDemo3
                 case 3:
                     PlayBackMode.Kind = PackIconKind.Repeat;
                     PopCyc.IsOpen = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void LsMenu1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           switch(LsMenu1.SelectedIndex)
+            {
+                case 0:
+                    this.ContentGrid.Children.Clear();
+                    this.ContentGrid.Children.Add(new YinYueGuan());
+                    break;
+                case 1:
+                    this.ContentGrid.Children.Clear();
+                    this.ContentGrid.Children.Add(new ShiPing());
                     break;
                 default:
                     break;
